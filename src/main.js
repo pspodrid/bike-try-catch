@@ -16,7 +16,13 @@ $(document).ready(function() {
     (async () => {
       let bikeService = new BikeService();
       const response = await bikeService.apiCall(city,color,manufacturer);
-      getElements(response);
+      // if (this.status === 200) {
+      // if (response.ok) {
+        getElements(response);
+        console.log("are you getting here?")
+      // } else {
+      // $('.showErrors').text(`I'm sorry, Dave, I don't think I can do that because:  ${response.status}`);
+      // }
     })();
 
    function getElements(response) {
