@@ -12,16 +12,20 @@ $(document).ready(function() {
     $('#color').val("");
     const manufacturer = $('#manufacturer').val();
     $('#manufacturer').val("");
+    const serial = $('#serial').val();
+    $('#serial').val("");
 
     (async () => {
       let bikeService = new BikeService();
-      const response = await bikeService.apiCall(city,color,manufacturer);
-      // if (this.status === 200) {
-      // if (response.ok) {
+      let response = await bikeService.apiCall(city,color,manufacturer);
+      if (response.error) {
+        showError(response)
+        console.log(response);
+      } else {
+        console.log(response);
         getElements(response);
-        console.log("are you getting here?")
+      }
       // } else {
-      // $('.showErrors').text(`I'm sorry, Dave, I don't think I can do that because:  ${response.status}`);
       // }
     })();
 
@@ -29,5 +33,9 @@ $(document).ready(function() {
       $('.showNumber').text(`The number of stolen bikes that match your search is ${response.proximity}`);
       $('.showTotal').text(`The total number of nonstolen bikes in your area is ${response.non}`);
     }
+
+    function showError(response) {
+    $('.showErrors').text(`I'm sorry, Dave, I don't think I can do that because:  ${response.error}`);
+    };
   });
 });
